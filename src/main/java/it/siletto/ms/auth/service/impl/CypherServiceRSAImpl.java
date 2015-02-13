@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
 import com.sun.jersey.spi.resource.Singleton;
 
 @Singleton
@@ -19,7 +20,8 @@ public class CypherServiceRSAImpl implements CypherService {
 
 	private Map<String, Key> keyCache = new HashMap<String, Key>();
 
-	private ObjectMapper mapper = new ObjectMapper();
+	@Inject
+	private ObjectMapper mapper;
 	
 	protected PrivateKey getPrivateKeyFromCache(String filename) throws Exception {
 		Key fromCache = keyCache.get(filename);
