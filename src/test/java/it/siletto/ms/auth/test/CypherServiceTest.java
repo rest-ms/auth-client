@@ -1,6 +1,8 @@
 package it.siletto.ms.auth.test;
 
+import static org.fest.assertions.api.Assertions.assertThat;
 import it.siletto.ms.auth.dto.EncryptedTokenDTO;
+import it.siletto.ms.auth.service.CypherService;
 import it.siletto.ms.auth.service.impl.CypherServiceRSAImpl;
 
 import java.security.SecureRandom;
@@ -10,7 +12,8 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Sets;
-import static org.fest.assertions.api.Assertions.assertThat;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public class CypherServiceTest {
 
@@ -19,17 +22,18 @@ public class CypherServiceTest {
 
 		String username="E2500022";
 		long expire = new SecureRandom().nextLong();
-		String privateKeyFile = "C:/Users/Alessandro/workspace/auth-service/src/test/java/private.key";
-		String publicKeyFile="C:/Users/Alessandro/workspace/auth-service/src/test/java/public.key";
+		String privateKeyFile = "C:/Users/Alessandro/workspace/rest-ms/auth-service/src/test/java/private.key";
+		String publicKeyFile="C:/Users/Alessandro/workspace/rest-ms/auth-service/src/test/java/public.key";
 		
-		CypherServiceRSAImpl cryptService = new CypherServiceRSAImpl();
+		Injector injector = Guice.createInjector();
+		CypherService cypherService = injector.getInstance(CypherServiceRSAImpl.class);
 		Set<String> roles = Sets.newHashSet();
 		roles.add("user");
 		roles.add("client");
-		String token = cryptService.generateToken(publicKeyFile, username, roles, expire);
+		String token = cypherService.generateToken(publicKeyFile, username, roles, expire);
 		System.out.println("token: "+token);
 	
-		String decrypted = cryptService.decrypt(privateKeyFile, token);
+		String decrypted = cypherService.decrypt(privateKeyFile, token);
 				
 		System.out.println("decripted: "+decrypted);
 		
