@@ -22,8 +22,8 @@ public class CypherServiceTest {
 
 		String username="E2500022";
 		long expire = new SecureRandom().nextLong();
-		String privateKeyFile = "C:/Users/Alessandro/workspace/rest-ms/auth-service/src/test/java/private.key";
-		String publicKeyFile="C:/Users/Alessandro/workspace/rest-ms/auth-service/src/test/java/public.key";
+		String privateKeyFile = "D:/dev/workspaces/personale/rest-ms/auth-service/src/test/java/private.key";
+		String publicKeyFile="D:/dev/workspaces/personale/rest-ms/auth-service/src/test/java/public.key";
 		
 		Injector injector = Guice.createInjector();
 		CypherService cypherService = injector.getInstance(CypherServiceRSAImpl.class);
