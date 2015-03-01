@@ -1,2 +1,1 @@
-authentication backend
-TODO: split into a new auth-client with only DTO and interfaces
+dropwizard @RestrictedTo annotation and RSA cypher utility classes 
